@@ -8,7 +8,7 @@ void    init_philosophers(t_rules *rules)
     while(i < rules->nb_philo)
     {
         rules->philo[i].id = i;
-        rules->philo[i].nb_ate = 0;
+        rules->philo[i].nb_meal = 0;
         rules->philo[i].last_meal = 0;
         rules->philo[i].left_fork = i;
         rules->philo[i].right_fork = (i + 1) % rules->nb_philo;
@@ -25,10 +25,14 @@ int init_mutex(t_rules *rules)
     while(i < rules->nb_philo)
     {
         if(pthread_mutex_init(&(rules->forks[i]), NULL))
-            return (1);
+            return (ERROR);
         i++;
     }
-    return (0);
+    if(pthread_mutex_init(&(rules->writing), NULL))
+        return (ERROR);
+    if(pthread_mutex_init(&(rules->eating), NULL))
+        return (ERROR);
+    return (GOOD);
 }
 
 int init_all(t_rules *rules, char **argv)
@@ -37,19 +41,21 @@ int init_all(t_rules *rules, char **argv)
     rules->time_death = ft_atoi(argv[2]);
     rules->time_eat = ft_atoi(argv[3]);
     rules->time_sleep = ft_atoi(argv[4]);
+    rules->status = ALIVE;
+    rules->all_ate = NO;
     if (rules->nb_philo < 2 || rules->time_death < 0 || rules->time_eat < 0
         || rules->time_sleep < 0)
-        return (1);
+        return (ERROR);
     if (argv[5])
     {
         rules->nb_eat = ft_atoi(argv[5]);
         if (rules->nb_eat <= 0)
-            return(1);
+            return(ERROR);
     }
     else
         rules->nb_eat = -1;
     init_philosophers(rules);
-    if(init_mutex(rules))
-        error();//changer
-    return (0);
+    if(init_mutex(rules) == ERROR)
+        return (ERROR_MUTEX);//changer
+    return (GOOD);
 }

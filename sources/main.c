@@ -2,13 +2,15 @@
 
 int main(int argc, char **argv)
 {
+	int error;
     t_rules rules;
 
     if (argc != 5 && argc != 6)
-        error();//changer
-    if (init_all(&rules, argv) != GOOD)
-        error();//changer
-    if (ft_philo())
-        error();//changer
+        return (error_manager(ERROR));
+    error = init_all(&rules, argv);
+	if (error != GOOD)
+        return (error_manager(error));
+    if (ft_philo(&rules))
+        return (write_error("PHILO ERROR"));
     return (0);
 }

@@ -36,7 +36,7 @@ long long   time_diff(long long t0, long long t1)
     return (t1 - t0);
 }
 
-void    sleep(long long sleeping_time, t_rules *rules)
+void    sleep_time(long long sleeping_time, t_rules *rules)
 {
     long long i;
 
@@ -49,7 +49,7 @@ void    sleep(long long sleeping_time, t_rules *rules)
     }
 }
 
-void    action_print(t_rules *rules, int id, char *string)
+void    action(t_rules *rules, int id, char *string)
 {
 	pthread_mutex_lock(&(rules->writing));
 	if (rules->status == ALIVE)

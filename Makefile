@@ -4,7 +4,7 @@ SHELL	=	/bin/bash
 
 NAME		= philo
 INC			= includes
-HEADER		= -I $(INC) -lpthread
+HEADER		= -I $(INC)
 SRC_DIR		= sources/
 OBJ_DIR		= obj/
 CC			= gcc

@@ -6,7 +6,7 @@
 /*   By: alondot <alondot@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 01:47:40 by alondot           #+#    #+#             */
-/*   Updated: 2023/01/30 01:47:51 by alondot          ###   ########.fr       */
+/*   Updated: 2023/01/30 15:16:34 by alondot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	init_all(t_rules *rules, char **argv)
 	rules->time_sleep = ft_atoi(argv[4]);
 	rules->status = ALIVE;
 	rules->all_ate = NO;
-	if (rules->nb_philo < 2 || rules->time_death < 0 || rules->time_eat < 0
-		|| rules->time_sleep < 0)
+	if (rules->nb_philo < 1 || rules->nb_philo > 250 || rules->time_death < 0
+		|| rules->time_eat < 0 || rules->time_sleep < 0)
 		return (ERROR);
 	if (argv[5])
 	{

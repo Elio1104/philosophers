@@ -6,7 +6,7 @@
 /*   By: alondot <alondot@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 01:45:57 by alondot           #+#    #+#             */
-/*   Updated: 2023/01/30 01:45:59 by alondot          ###   ########.fr       */
+/*   Updated: 2023/01/30 15:19:09 by alondot          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ void	eating(t_philo *philo)
 	{
 		pthread_mutex_lock(&(rules->forks[philo->left_fork]));
 		action(rules, philo->id, "has taken a fork");
+		while (philo->left_fork == philo->right_fork)
+		{
+			pthread_mutex_unlock(&(rules->forks[philo->left_fork]));
+			if (rules->status == DEAD)
+				return ;
+		}
 		pthread_mutex_lock(&(rules->forks[philo->right_fork]));
 		action(rules, philo->id, "has taken a fork");
 		pthread_mutex_lock(&(rules->eating));
